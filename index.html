@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Desconto Progressivo - Loja Exemplo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f8f8f8;
+        }
+        .menu-lateral {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background: #073a29;
+            color: #fff;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .menu-lateral a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 12px 0;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .menu-lateral a:hover {
+            color: #b2dfdb;
+        }
+        .menu-lateral .nav-login {
+            position: absolute;
+            bottom: 20px;
+            width: calc(100% - 40px);
+        }
+        .conteudo-principal {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        header {
+            background: #073a29;
+            color: #fff;
+            padding: 16px 0;
+            margin-bottom: 32px;
+        }
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+        }
+        .busca {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 20px;
+            padding: 8px 16px;
+            width: 300px;
+        }
+        .busca input {
+            border: none;
+            outline: none;
+            width: 100%;
+            padding: 4px;
+            font-size: 14px;
+        }
+        .busca input::placeholder {
+            color: #999;
+        }
+        .busca i {
+            color: #073a29;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+        .header-login {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 16px;
+            border: 2px solid #fff;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        .header-login:hover {
+            background: #fff;
+            color: #073a29;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            position: relative;
+        }
+        .nav-login {
+            position: absolute;
+            height: 100%;
+            display: flex;
+            margin-left: 1350px;
+        
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 32px auto;
+            padding: 0 16px;
+        }
+        h1 {
+            color: #073a29;
+            font-size: 2rem;
+            text-align: center;
+        }
+        .promo {
+            margin: 8px 0 24px 0;
+            color: #333;
+            text-align: center;
+        }
+        .produtos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 32px;
+            margin-top: 32px;
+        }
+        .produto {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px 16px 20px 16px;
+            text-align: center;
+            box-shadow: 0 4px 16px #0002;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #e0e0e0;
+        }
+        .produto:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 32px #0003;
+            border-color: #b2dfdb;
+        }
+        .produto img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            margin-bottom: 18px;
+            border-radius: 12px;
+            background: #f3f3f3;
+            box-shadow: 0 2px 8px #0001;
+        }
+        .produto-nome {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #073a29;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .produto-preco {
+            color: #009688;
+            font-size: 1.1rem;
+            font-weight: bold;
+            background: #e0f2f1;
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 8px;
+        }
+        footer {
+            background: #073a29;
+            color: #fff;
+            padding: 40px 0 0 0;
+            margin-top: 48px;
+        }
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 32px;
+            padding: 0 16px;
+        }
+        .footer-col {
+            flex: 1 1 220px;
+            min-width: 200px;
+        }
+        .footer-col h3, .footer-col h4 {
+            margin-top: 0;
+            color: #b2dfdb;
+        }
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-col ul li {
+            margin-bottom: 8px;
+        }
+        .footer-col ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-col ul li a:hover {
+            color: #009688;
+        }
+        .footer-social {
+            margin-top: 12px;
+        }
+        .footer-social a {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-right: 12px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-social a:hover {
+            color: #009688;
+        }
+        .footer-copy {
+            text-align: center;
+            color: #b2dfdb;
+            font-size: 0.95rem;
+            padding: 18px 0 12px 0;
+            margin-top: 24px;
+            border-top: 1px solid #145a43;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="menu-lateral">
+        <a href="#">Masculino</a>
+        <a href="#">Feminino</a>
+        <a href="#">Infantil</a>
+        <a href="#">Explorar</a>
+        <a href="#">Ofertas Exclusivas</a>
+    </div>
+    <div class="conteudo-principal">
+        <header>
+            <div class="header-container">
+                <div class="busca">
+                    <input type="text" placeholder="O que você está procurando?">
+                    <i class="fas fa-search"></i>
+                </div>
+                <a href="#" class="header-login">Login</a>
+            </div>
+        </header>
+        <div class="container">
+            <h1>DESCONTO PROGRESSIVO</h1>
+            <div class="promo">
+                Aproveite a oportunidade! Na compra de 2 peças receba 15% OFF, 3 peças 20% OFF e 4 peças ou mais 30% OFF.
+            </div>
+            <div class="produtos">
+                <div class="produto">
+                    <img src="fotostrabalho/pexels-mornie-jeremiah-34486261-11807005.jpg" alt="Polo Branca">
+                    <div class="produto-nome">Polo Branca</div>
+                    <div class="produto-preco">R$ 299,00</div>
+                </div>
+                <div class="produto">
+                    <img src="fotostrabalho/azul.jpg" alt="Camiseta Azul">
+                    <div class="produto-nome">Camiseta Azul</div>
+                    <div class="produto-preco">R$ 199,00</div>
+                </div>
+                <div class="produto">
+                    <img src="fotostrabalho/bone.jpg" alt="Boné Azul">
+                    <div class="produto-nome">Boné Azul</div>
+                    <div class="produto-preco">R$ 129,00</div>
+                </div>
+                <div class="produto">
+                    <img src="fotostrabalho/tenis.jpg" alt="Tênis Branco">
+                    <div class="produto-nome">Tênis Branco</div>
+                    <div class="produto-preco">R$ 399,00</div>
+                </div>
+                <div class="produto">
+                    <img src="fotostrabalho/verde.jpg" alt="Camisa Verde">
+                    <div class="produto-nome">Camisa Verde</div>
+                    <div class="produto-preco">R$ 219,00</div>
+                </div>
+                <div class="produto">
+                    <img src="fotostrabalho/moletom.jpg" alt="Moletom Cinza">
+                    <div class="produto-nome">Moletom Cinza</div>
+                    <div class="produto-preco">R$ 349,00</div>
+                </div>
+                <div class="produto">
+                    <img src="fotostrabalho/short.jpg" alt="Short Preto">
+                    <div class="produto-nome">Short Preto</div>
+                    <div class="produto-preco">R$ 159,00</div>
+                </div>
+                <div class="produto">
+                    <img src="fotostrabalho/cinto.jpg" alt="Cinto Marrom">
+                    <div class="produto-nome">Cinto Marrom</div>
+                    <div class="produto-preco">R$ 99,00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer style="background:#073a29; color:white; margin-top:40px; padding:30px;">
+        <div style="max-width:900px; margin:auto;">
+            <table style="width:100%; color:white;">
+                <tr>
+                    <td style="vertical-align:top; text-align:center;">
+                        <div style="font-size:1.2em; font-weight:bold; margin-bottom:8px;">Loja Exemplo</div>
+                        <div>Seu estilo, nossa inspiração.<br>Desde 2024</div>
+                    </td>
+                    <td style="vertical-align:top; text-align:center;">
+                        <div style="margin-bottom:8px; font-weight:bold;">Links</div>
+                        <a href="#" style="color:#b2dfdb; text-decoration:none; margin: 6px;">Sobre nós</a><br>
+                        <a href="#" style="color:#b2dfdb; text-decoration:none; margin: 6px;">Política de Privacidade</a><br>
+                        <a href="#" style="color:#b2dfdb; text-decoration:none; margin: 6px;">Contato</a>
+                    </td>
+                    <td style="vertical-align:top; text-align:center;">
+                        <div style="margin-bottom:8px; font-weight:bold;">Contato</div>
+                        E-mail: contato@lojaexemplo.com<br>
+                        WhatsApp: (11) 99999-9999
+                    </td>
+                </tr>
+            </table>
+            <div style="color:#b2dfdb; font-size:0.95em; margin-top:20px; text-align:center;">
+                 2024 Loja Exemplo. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+    
